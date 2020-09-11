@@ -1,0 +1,53 @@
+Keyfields,Extracted_Values,Editable Extracted_Values
+File_Name,Guard_7_Good.jpg,Guard_7_Good.jpg
+02_Patient_Name,"DUQUETTE, CHAD R :","DUQUETTE, CHAD R :"
+03_Patient_DOB,"MM; DD YY
+05!22 1988","MM; DD YY
+05!22 1988"
+05_Patient_Address,336 SAGAMORE ST,336 SAGAMORE ST
+11b_Claim_ID,,
+14_Date_of_Injury,eee 1,eee 1
+17B_NPI_NO,,
+21_Diagnosis_Code,M25 .532,M25 .532
+24_DOS_From,081125 120 _—,081125 120 _—
+24_DOS_To,"~ 08}
+115 120°","~ 08}
+115 120°"
+24B_Place_of_Service,| 22,| 22
+24D_CPT,| 70030,| 70030
+24D_Modifier,"bg} UP
+! 1","bg} UP
+! 1"
+24E_Diagnosis_Pointer,A,A
+24F_Charges,"“4
+0100","“4
+0100"
+24G_Days_Units,a,a
+24J_Rendering_Provide,—2085R0202%,—2085R0202%
+24J_Rendering_Provider_NPI,1619215167,1619215167
+25_Federal_Tax_ID_Number,02-0485921,02-0485921
+26_Patient_Account_No,“2417508890,“2417508890
+27_Total_Charges,‘sao foo,‘sao foo
+31_Physician_Signature,"MAHER, ASIM
+SIGNED O8 cae 2020","MAHER, ASIM
+SIGNED O8 cae 2020"
+31_Physician_Date,"R, ASIM
+OS cae 2020","R, ASIM
+OS cae 2020"
+32_Service_Facility_Location,"ELLIOT HOSPITAL 0/P s
+ONE ELLIOT WAY P
+MANCHESTER, NH 03103-3502 8B","ELLIOT HOSPITAL 0/P s
+ONE ELLIOT WAY P
+MANCHESTER, NH 03103-3502 8B"
+33_Billing_Provider_Info,"93. BILLING PROVIDER INFO & PH # ( 869 7728117 |
+OUTHERN NEW HAMPSHIRE RADIOLO
+
+© BOX 846192 .
+
+OSTON, MA 02284~6192","93. BILLING PROVIDER INFO & PH # ( 869 7728117 |
+OUTHERN NEW HAMPSHIRE RADIOLO
+
+© BOX 846192 .
+
+OSTON, MA 02284~6192"
+33_Billing_NPI_ID,1780648915.,1780648915.

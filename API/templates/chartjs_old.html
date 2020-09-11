@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HGS OCR</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../../static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../static/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../static/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../../static/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../../static/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="../../static/css/jquery.dataTables.min.css">
+ <!-- Tell the browser to be responsive to screen width -->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../../static/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="../../static/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="../../static/plugins/iCheck/all.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="../../static/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../../static/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../../static/bower_components/select2/dist/css/select2.min.css">
+
+	<!-- tabs in html  -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <!--- D3 wordcloud -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.4/d3.layout.cloud.js"> </script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> -->
+  
+  <!-- pdf html text -->
+     <script type="text/javascript" src="../../static/js/jspdf.min.js"></script>
+  
+ <script type="text/javascript" src="../../static/js/jquery-git.js"></script>
+    
+  <style type="text/css">
+    
+  </style>
+  <!-- html to pdf -->
+   
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("#btnPrint").live("click", function () {
+            var divContents = $("#dvContainer").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+		$("#btnPrint1").live("click", function () {
+            var divContents = $("#dvContainer1").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+
+
+ <style>
+ 
+ 
+.cover-spin {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.7);
+    z-index: 9999;
+    display: none;
+}
+
+.centerloader {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-left: -34px; /* margin is -0.5 * dimension */
+    margin-top: -25px;
+}
+
+
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cover-spin::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    border-style: solid;
+    border-color: black;
+    border-top-color: transparent;
+    border-width: 4px;
+    border-radius: 50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+} 
+ 
+ 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ca2222;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2ab934;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(55px);
+  -ms-transform: translateX(55px);
+  transform: translateX(55px);
+}
+
+/*------ ADDED CSS ---------*/
+.on
+{
+  display: none;
+}
+
+.on, .off
+{
+  color: white;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  font-size: 10px;
+  font-family: Verdana, sans-serif;
+}
+
+input:checked+ .slider .on
+{display: block;}
+
+input:checked + .slider .off
+{display: none;}
+
+/*--------- END --------*/
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;}
+</style>
+ 
+</head>
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>H</b>GS</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>HGS</b>Digital</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+	
+	  
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+	 <!-- <img src="../../static/dist/img/HGS-digital_Logo.png" class="user-image" alt="User Image"> -->
+      <div class="navbar-custom-menu">
+	   
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+              <!-- <i class="fa fa-envelope-o"></i> -->
+              <!-- <span class="label label-success">4</span> -->
+            <!-- </a> -->
+            <!-- <ul class="dropdown-menu"> -->
+              <!-- <li class="header">You have 4 messages</li> -->
+              <!-- <li> -->
+                <!-- inner menu: contains the actual data -->
+                <!-- <ul class="menu"> -->
+                  <!-- <li><!-- start message -->
+                    <!-- <a href="#"> -->
+                      <!-- <div class="pull-left"> -->
+                        <!-- <img src="../../static/dist/img/avatar2.png" class="img-circle" alt="User Image"> -->
+                      <!-- </div> -->
+                      <!-- <h4> -->
+                        <!-- Support Team -->
+                        <!-- <small><i class="fa fa-clock-o"></i> 5 mins</small> -->
+                      <!-- </h4> -->
+                      <!-- <p>Why not buy a new awesome theme?</p> -->
+                    <!-- </a> -->
+                  <!-- </li> -->
+                  <!-- end message -->
+                <!-- </ul> -->
+              <!-- </li> -->
+              <!-- <li class="footer"><a href="#">See All Messages</a></li> -->
+            <!-- </ul> -->
+          </li>
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!-- <li class="dropdown notifications-menu"> -->
+            <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+              <!-- <i class="fa fa-bell-o"></i> -->
+              <!-- <span class="label label-warning">10</span> -->
+            <!-- </a> -->
+            <!-- <ul class="dropdown-menu"> -->
+              <!-- <li class="header">You have 10 notifications</li> -->
+              <!-- <li> -->
+                <!-- inner menu: contains the actual data -->
+                <!-- <ul class="menu"> -->
+                  <!-- <li> -->
+                    <!-- <a href="#"> -->
+                      <!-- <i class="fa fa-users text-aqua"></i> 5 new members joined today -->
+                    <!-- </a> -->
+                  <!-- </li> -->
+                <!-- </ul> -->
+              <!-- </li> -->
+              <!-- <li class="footer"><a href="#">View all</a></li> -->
+            <!-- </ul> -->
+          <!-- </li> -->
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!-- <li class="dropdown tasks-menu"> -->
+            <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"> -->
+              <!-- <i class="fa fa-flag-o"></i> -->
+              <!-- <span class="label label-danger">9</span> -->
+            <!-- </a> -->
+            <!-- <ul class="dropdown-menu"> -->
+              <!-- <li class="header">You have 9 tasks</li> -->
+              <!-- <li> -->
+                <!-- inner menu: contains the actual data --> 
+                <!-- <ul class="menu"> -->
+                  <!-- <li><!-- Task item -->
+                    <!-- <a href="#"> -->
+                      <!-- <h3> -->
+                        <!-- Design some buttons -->
+                        <!-- <small class="pull-right">20%</small> -->
+                      <!-- </h3> -->
+                      <!-- <div class="progress xs"> -->
+                        <!-- <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" -->
+                             <!-- aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> -->
+                          <!-- <span class="sr-only">20% Complete</span> -->
+                        <!-- </div> -->
+                      <!-- </div> -->
+                    <!-- </a> -->
+                  <!-- </li> -->
+                   <!-- end task item -->
+                <!-- </ul> -->
+              <!-- </li> -->
+              <!-- <li class="footer"> -->
+                <!-- <a href="#">View all tasks</a> -->
+              <!-- </li> -->
+            <!-- </ul> -->
+          <!-- </li> -->
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="../../static/dist/img/avatar2.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">User</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="../../static/dist/img/avatar2.png" class="img-circle" alt="User Image">
+
+                <p>
+                  User
+                  <small>WE TRANSFORM BUSINESSES INTO DIGITAL INNOVATORS</small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <!-- <li class="user-body"> -->
+                <!-- <div class="row"> -->
+                  <!-- <div class="col-xs-4 text-center"> -->
+                    <!-- <a href="#">Followers</a> -->
+                  <!-- </div> -->
+                  <!-- <div class="col-xs-4 text-center"> -->
+                    <!-- <a href="#">Sales</a> -->
+                  <!-- </div> -->
+                  <!-- <div class="col-xs-4 text-center"> -->
+                    <!-- <a href="#">Friends</a> -->
+                  <!-- </div> -->
+                <!-- </div> -->
+            <!-- /.row --> 
+              <!-- </li> -->
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <!-- <div class="pull-left"> -->
+                  <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
+                <!-- </div> -->
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <!-- <li> -->
+            <!-- <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a> -->
+          <!-- </li> -->
+        </ul>
+      </div>
+    </nav>
+	
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../../static/dist/img/avatar2.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>User</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-dashboard"></i> <span>Dashboard</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="../../static/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li> -->
+            <!-- <li><a href="../../static/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-files-o"></i> -->
+            <!-- <span>Layout Options</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <span class="label label-primary pull-right">4</span> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="../static/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li> -->
+            <!-- <li><a href="../static/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li> -->
+            <!-- <li><a href="../static/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li> -->
+            <!-- <li><a href="../static/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li> -->
+          <!-- <a href="../static/widgets.html"> -->
+            <!-- <i class="fa fa-th"></i> <span>Widgets</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <small class="label pull-right bg-green">new</small> -->
+            <!-- </span> -->
+          <!-- </a> -->
+        <!-- </li> -->
+        <li class="treeview active">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Charts</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+            <!-- <li><a href="morris.html"><i class="fa fa-circle-o"></i> Morris</a></li> -->
+            <!-- <li><a href="flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
+            <!-- <li><a href="inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
+          </ul>
+        </li>
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-laptop"></i> -->
+            <!-- <span>UI Elements</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="../static/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li> -->
+            <!-- <li><a href="../static/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li> -->
+            <!-- <li><a href="../static/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li> -->
+            <!-- <li><a href="../static/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li> -->
+            <!-- <li><a href="../static/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li> -->
+            <!-- <li><a href="../static/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-edit"></i> <span>Forms</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="../static/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li> -->
+            <!-- <li><a href="../static/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li> -->
+            <!-- <li><a href="../static/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-table"></i> <span>Tables</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="../static/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li> -->
+            <!-- <li><a href="../static/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li> -->
+          <!-- <a href="../static/calendar.html"> -->
+            <!-- <i class="fa fa-calendar"></i> <span>Calendar</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <small class="label pull-right bg-red">3</small> -->
+              <!-- <small class="label pull-right bg-blue">17</small> -->
+            <!-- </span> -->
+          <!-- </a> -->
+        <!-- </li> -->
+        <!-- <li> -->
+          <!-- <a href="../static/mailbox/mailbox.html"> -->
+            <!-- <i class="fa fa-envelope"></i> <span>Mailbox</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <small class="label pull-right bg-yellow">12</small> -->
+              <!-- <small class="label pull-right bg-green">16</small> -->
+              <!-- <small class="label pull-right bg-red">5</small> -->
+            <!-- </span> -->
+          <!-- </a> -->
+        <!-- </li> -->
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-folder"></i> <span>Examples</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="../static/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li> -->
+            <!-- <li><a href="../static/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li> -->
+            <!-- <li><a href="../static/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li> -->
+            <!-- <li><a href="../static/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li> -->
+            <!-- <li><a href="../static/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li> -->
+            <!-- <li><a href="../static/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li> -->
+            <!-- <li><a href="../static/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li> -->
+            <!-- <li><a href="../static/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li> -->
+            <!-- <li><a href="../static/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li class="treeview"> -->
+          <!-- <a href="#"> -->
+            <!-- <i class="fa fa-share"></i> <span>Multilevel</span> -->
+            <!-- <span class="pull-right-container"> -->
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            <!-- </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> -->
+            <!-- <li class="treeview"> -->
+              <!-- <a href="#"><i class="fa fa-circle-o"></i> Level One -->
+                <!-- <span class="pull-right-container"> -->
+                  <!-- <i class="fa fa-angle-left pull-right"></i> -->
+                <!-- </span> -->
+              <!-- </a> -->
+              <!-- <ul class="treeview-menu"> -->
+                <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li> -->
+                <!-- <li class="treeview"> -->
+                  <!-- <a href="#"><i class="fa fa-circle-o"></i> Level Two -->
+                    <!-- <span class="pull-right-container"> -->
+                      <!-- <i class="fa fa-angle-left pull-right"></i> -->
+                    <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- <ul class="treeview-menu"> -->
+                    <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li> -->
+                    <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li> -->
+                  <!-- </ul> -->
+                <!-- </li> -->
+              <!-- </ul> -->
+            <!-- </li> -->
+            <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+        <!-- <li><a href="https://www.hgsdigital.com//docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li> -->
+        <!-- <li class="header">LABELS</li> -->
+        <!-- <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li> -->
+        <!-- <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
+        <!-- <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  <div class="cover-spin"></div>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+     
+	  <h1>
+	  
+        HGS OCR 
+        <small></small>
+      </h1>
+      <!-- <ol class="breadcrumb"> -->
+        <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
+        <!-- <li><a href="#">Charts</a></li> -->
+        <!-- <li class="active">ChartJS</li> -->
+      <!-- </ol> -->
+    </section>
+	
+	<form>
+	
+					  <input type="hidden" name="ip1" id="ip1" value="All" />
+					  <input type="hidden" name="ip2" id="ip2" value="All" />
+					  <input type="hidden" name="ip3" id="ip3" value="All" />
+					  <input type="hidden" name="ip4" id="ip4" value="All" />
+					  <input type="hidden" name="ip5" id="ip5" value="All" />
+					  <input type="hidden" name="ip6" id="ip6" value="All" />
+					  <input type="hidden" name="ip7" id="ip7" value="All" />
+					  <input type="hidden" name="ip8" id="ip8" value="All" />
+					  <input type="hidden" name="ip9" id="ip9" value="All" />
+					  
+					  
+	</form>
+	
+
+    <!-- Main content -->
+    <section class="content">
+	      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Image Controller</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
+			<!-- /.box-header -->
+        <div  class="box-body" >
+		<div id = "chart"></div>
+	<form id="upload-file" method="post" enctype="multipart/form-data">
+			<div class="col-md-4">
+              <div class="form-group">
+					<label>File Upload</label>
+
+                  <input type="file" id="InputFile"  name="file" >
+				  
+
+              </div>
+			  
+              </form>
+              <!-- /input-group -->
+				<!-- /.row -->
+			</div>
+        <!-- /.box-body -->
+           <div class="col-md-4">
+		   <label>Preprocessing</label>
+		   <label class="switch">
+			  
+			  <input id="toggle-event" type="checkbox" >
+			  <div class="slider round"><!--ADDED HTML --><span class="on">ON</span><span class="off">OFF</span><!--END--></div>
+			  <!-- <span class="slider round"></span>  -->
+		   </label>
+
+		
+		   
+		
+			 </div>
+			<div class="col-md-4">
+				<label>Input Image OCR</label>
+			  <button id="OCR_Button" style="display:none">OCR</button>
+			</div>
+          </div>
+          <!-- /.box -->
+
+		</div>
+			          <!-- general form elements -->
+	      <div class="row">
+		
+        <div class="col-md-6">
+          <!-- DONUT CHART  -->
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Input Image</h3>
+			  <!-- <button id="OCR_Button">OCR</button> -->
+				<!-- <input type="button" onclick="snap()" value="Snap"> -->
+              <!-- <div class="box-tools pull-right"> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> -->
+                <!-- </button> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+              <!-- </div> -->
+            </div>
+            <div  class="box-body">
+			<div id = "chart3" class="chart">
+			<!-- <div id="my_camera"></div> -->
+			<!-- <div id="results"></div> -->
+				<video id="video" width="260" height="200" autoplay style="display:block"></video>
+				<canvas id="canvas" width="260" height="200" style="display:none"></canvas>	
+				
+              <!-- <canvas id="pieChart1" style="height:250px"></canvas> -->
+			</div>  
+            </div>
+            <!-- /.box-body  -->
+          </div>
+          <!-- /.box  -->
+
+          <!-- BAR CHART --> 
+          <!-- <div class="box box-success"> -->
+            <!-- <div class="box-header with-border"> -->
+              <!-- <h3 class="box-title">Customer Priority</h3> -->
+
+              <!-- <div class="box-tools pull-right"> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> -->
+                <!-- </button> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+              <!-- </div> -->
+            <!-- </div> -->
+            <!-- <div class="box-body"> -->
+              <!-- <div id = "chart2" class="chart"> -->
+                <!-- <canvas id="barChart1" style="height:250px"></canvas> -->
+              <!-- </div> -->
+            <!-- </div> -->
+            <!-- /.box-body --> 
+          <!-- </div> -->
+          <!-- /.box --> 
+
+        </div>
+        <!-- /.col (LEFT) -->
+		
+        <div class="col-md-6">
+<!-- DONUT CHART -->
+          <div class="box box-danger">
+            <div id="output_image" class="box-header with-border">
+              <h3 class="box-title">Output Image</h3>
+
+              <!-- <div class="box-tools pull-right"> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> -->
+                <!-- </button> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+              <!-- </div> -->
+            </div>
+            <div class="box-body">
+				<div id = "chart4" class="chart">
+				<!-- <canvas id="validatecanvas" width="260" height="200" style="display:none"></canvas>	 -->
+              <canvas id="validatecanvas" style="height:200px"></canvas>
+                </div>
+			</div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!--  BAR CHART -->
+          <!-- <div class="box box-success"> -->
+            <!-- <div class="box-header with-border"> -->
+              <!-- <h3 class="box-title">Customer Sentiments</h3> -->
+
+              <!-- <div class="box-tools pull-right"> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> -->
+                <!-- </button> -->
+                <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+              <!-- </div> -->
+            <!-- </div> -->
+            <!-- <div class="box-body"> -->
+              <!-- <div id = "chart1"class="chart"> -->
+                <!-- <canvas id="barChart" style="height:250px"></canvas> -->
+              <!-- </div> -->
+            <!-- </div> -->
+            <!-- /.box-body -->
+          <!-- </div> -->
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (RIGHT) -->
+      </div>
+		  <!-- Filter Button -->
+		  		  
+          <!-- <div class="box box-danger"> -->
+            <!-- <div class="box-header with-border"> -->
+              <!-- <h3 class="box-title">Filter Buttons</h3> -->
+            <!-- </div> -->
+			      <!-- Filter Buttons -->
+
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Image Metadata</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+			
+            <!-- <form role="form"  method="POST" enctype="multipart/form-data" id="myForm"> -->
+              <div class="box-body">
+                <div class="col-md-3">
+                  <label for="height">Height (pixels)</label>
+				  <!-- <p>{{ height }}</p> -->
+                  <input type="text" class="form-control" id="height" placeholder="Height" readonly>
+                </div>
+                <div class="col-md-3">
+                  <label for="width">Width (pixels)</label>
+				  <!-- <pre>{{ dept }}</pre> -->
+                  <input type="text" class="form-control" id="width" placeholder="Width" readonly>
+                </div>
+				<div class="col-md-3">
+                  <label for="dpi">Bits per Pixel (if available)</label>
+				  <!-- <pre>{{ dept }}</pre> -->
+                  <input type="text" class="form-control" id="dpi" placeholder="Bits per Pixel " readonly>
+                </div>
+				
+			<div class="col-md-3">
+              <div class="form-group">
+                
+                  <label for="res">Resolution (mp)</label>
+				  <!-- <pre>{{ res }}</pre> -->
+                  <input type="text" class="form-control" id="res" placeholder="Resolution" readonly>
+              </div>
+              
+              <!-- /.form-group  -->
+            </div>
+                <!-- <form id="myForm" method="post" enctype="multipart/form-data"> -->
+				<!-- <div class="form-group"> -->
+                  <!-- <label >File input</label> -->
+                  <!-- input type="file" id="InputFile"  name="file" accept="audio/*" -->
+				  <!-- <input type="file" id="InputFile" name="file" > -->
+
+                  <!-- <p class="help-block">Example block-level help text here.</p> -->
+                <!-- </div> -->
+
+              </div>
+              <!-- /.box-body -->
+
+            <!-- </form> -->
+          </div>
+          <!-- /.box -->
+		   <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Accuracy Metric</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+			
+            <!-- <form role="form"  method="POST" enctype="multipart/form-data" id="myForm"> -->
+              <div class="box-body">
+                <div class="col-md-3">
+                  <label for="Extraction1">Extraction %</label>
+				  <!-- <p>{{ height }}</p> -->
+                  <input type="text" class="form-control" id="Extraction1" placeholder="Extraction %" readonly>
+                </div>
+                <div class="col-md-3">
+                  <label for="Error1">Accuracy %</label>
+				  <!-- <pre>{{ dept }}</pre> -->
+                  <input type="text" class="form-control" id="Error1" placeholder="Accuracy %" readonly>
+                </div>
+				<div class="col-md-3">
+                  <label for="Computation1">Computation Time (sec)</label>
+				  <!-- <pre>{{ dept }}</pre> -->
+                  <input type="text" class="form-control" id="Computation1" placeholder="Computation Time" readonly>
+                </div>
+			
+              </div>
+              <!-- /.box-body -->
+
+            <!-- </form> -->
+          </div>
+          <!-- /.box -->
+      <div class="row">
+        <div class="col-xs-12">
+
+
+          <div class="box box-danger">
+		  
+            <div class="box-header">
+	
+		  <ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#menu1">Unstructured Output</a></li>
+    <li><a data-toggle="pill" href="#home">Structured Output</a></li>
+	<li><a data-toggle="pill" href="#menu2">table Output</a></li>
+	<li><a data-toggle="pill" href="#menu3">Banner Output</a></li>
+              <!-- <h3 class="box-title">Form Data</h3> -->
+		</ul>	
+		
+            </div>
+            <!-- /.box-header -->
+		<div class="tab-content">	
+		
+		 <div id="menu1" class="tab-pane fade in active">
+      <!-- <h3>Unstructured Data</h3> -->
+	     <form id="form1">
+    <div id="dvContainer">
+         <p>{{result}}</p>
+    </div>
+    <input type="button" value="Print Contents" id="btnPrint" />
+    </form>
+
+    </div>
+	
+	<div id="menu3" class="tab-pane fade">
+      <!-- <h3>Unstructured Data</h3> -->
+	     <form id="form2">
+    <div id="dvContainer1">
+         <p>{{result1}}</p>
+    </div>
+    <input type="button" value="Print Contents" id="btnPrint1" />
+    </form>
+
+    </div>
+	
+	<div id="home" class="tab-pane fade">	
+         <div id= "TableDivision" class="box-body" class="tab-pane fade in active" style="overflow-x:scroll">
+
+		 </div>
+		 </div>
+		
+	<div id="menu2" class="tab-pane fade">	
+         <div id= "TableDivision1" class="box-body" class="tab-pane fade in active" style="overflow-x:scroll">
+
+		 </div>
+	</div>
+	
+
+
+	</div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  </div>
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.18-pre
+    </div>
+    <strong>Copyright &copy; 2000-2019 <a href="https://www.hgsdigital.com/">HGS Digital</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script src="../../static/js/jquery-3.3.1.js"></script>
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- ChartJS -->
+<script src="../../static/bower_components/chart.js/Chart.js"></script>
+<!-- FastClick -->
+<script src="../../static/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../static/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../static/dist/js/demo.js"></script>
+<!-- page script -->
+<!-- DataTables -->
+<script src="../../static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../../static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../static/bower_components/moment/min/moment.min.js"></script>
+<script src="../../static/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="../../static/js/jquery.dataTables.min.js"></script>
+<script src="../../static/js/dataTables.buttons.min.js"></script>
+<script src="../../static/js/buttons.flash.min.js"></script>
+<script src="../../static/js/jszip.min.js"></script>
+<script src="../../static/js/pdfmake.min.js"></script>
+<script src="../../static/js/vfs_fonts.js"></script>
+<script src="../../static/js/buttons.html5.min.js"></script>
+<script src="../../static/js/buttons.print.min.js"></script>
+
+
+<script>
+
+
+  InputFile.onchange = function(e){
+document.getElementById('chart4').innerHTML = '';
+  $('.cover-spin ').show(); 
+  var name = $('input[type=file]').val().split('\\').pop();
+  $('#ip1').val(name)
+  var form_data = new FormData($('#upload-file')[0]);
+    console.log(ip1)
+	document.getElementById('chart3').innerHTML = '';
+	document.getElementById("Extraction1").value = '';
+	document.getElementById("Error1").value = '';
+	document.getElementById("Computation1").value = '';
+
+	
+	debugger; 
+		 $.ajax({
+            type: 'POST',
+            url: '/',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+			
+            success: function(data) {
+				console.log(data)
+				name1 = data.filename;
+				dept = data.dept;
+				height = data.height;
+				console.log(height)
+				width = data.width;
+				res = data.resolution
+				dpi = data.dpi
+				document.getElementById("height").value = height;
+				document.getElementById("width").value = width;
+				document.getElementById("res").value = res;
+				document.getElementById("dpi").value = dpi;
+				imgfile = data.imgfile
+				console.log(imgfile)
+				console.log(name1)
+				$('#ip1').val(name1)
+				console.log(ip1)
+				document.getElementById('chart3').innerHTML = 
+					'<img id="image" width="510" height="600" src="'+imgfile+'"/>';
+			    
+				$("#OCR_Button").show();
+				$("#POCR_Button").show();
+				
+				console.log('Success!');
+				$('.cover-spin ').hide(); 
+				if (res < 3) {
+ alert("We strongly recommend preprocessing the image before proceeding further.");
+} else {
+  
+ alert("We recommend investigating optional preprocessing of the image before proceeding further.");
+}
+
+				
+            },
+			async: false,
+        });
+}
+
+
+
+
+
+$("#OCR_Button").click( 
+function(evt){
+            $('.cover-spin ').show(); 
+			var name = $('#ip1').val();
+			var ip1 = $("#toggle-event").prop('checked');
+			console.log(name)
+			console.log(ip1)
+			console.log(name+"-"+ip1);
+			debugger;
+			var y = new Boolean(true);
+            if(ip1 == y)
+            {
+                $('#output_image').html('<h3 class="box-title">Preprocessed Output Image</h3>');
+            }
+            else
+            {
+                $('#output_image').html('<h3 class="box-title">Output Image</h3>');
+            }
+
+			$.post('/', { 		
+                 ip1: ip1,
+                 name: name
+                	},
+                    function(data) {
+                                                                //Successful data passed
+																height = data.height;
+																width = data.width;
+																res = data.resolution
+																dpi = data.dpi
+																Percentage_Extraction = data.Percentage_Extraction
+																Error_Per = data.Error_Per
+																Computation_Time = data.Computation_Time
+																document.getElementById("height").value = height;
+																document.getElementById("width").value = width;
+																document.getElementById("res").value = res;
+																document.getElementById("dpi").value = dpi;
+																document.getElementById("Extraction1").value = Percentage_Extraction;
+																document.getElementById("Error1").value = Error_Per;
+																document.getElementById("Computation1").value = Computation_Time;
+                                                                  console.log(data);
+                                                                  result = data.result;
+																  
+																   $('#dvContainer').html('<p>'+data.result+'</p>');
+																   $('#dvContainer1').html('<pre>'+data.result1+'</pre>');
+																  
+																  imgfile = data.imgfile
+																  document.getElementById('chart4').innerHTML = 
+																		'';
+																  document.getElementById('chart4').innerHTML = 
+																		'<img id="image" width="510" height="600" src="'+imgfile+'"/>';
+                                                            
+                                                                  EntireData = data.EntireData
+                                                                  colnames = data.colnames
+																  EntireData1 = data.EntireData1
+                                                                  colnames1 = data.colnames1
+                                                                  
+																		        $("#TableDivision").html("");
+																				var i = 1;
+																				var j = 0;
+																				var k = 0;
+																				var Html = '<table id = "table1"  class="table table-bordered table-striped">';
+																				
+																					Html += '<thead>';
+																					Html += '<tr>';
+																					Html += '<th> Sr.no </th>';
+																			for (j = 0; j < colnames.length; j++) {
+																			   
+																						Html += '<th> '+colnames[j]+' </th>';
+																			}
+																					   
+																					 Html += '</tr>'; 
+																					Html += '</thead>';
+																				debugger; 
+																					
+																					Html += '<tbody>';
+																					for (j = 0; j < EntireData.length; j++) {
+																					Html += '<tr>';
+																					Html += '<td>'+i+'</td>';
+																					i = i+1;
+
+																						
+																						for (k = 0; k < colnames.length; k++) {
+																						var abc = colnames[k];
+																						Html += '<td> '+EntireData[j][abc]+' </td>';
+																			}
+																						
+																					Html += '</tr>';
+																				   }
+																					Html += '</tbody>';
+
+																					Html += '</table>';
+
+
+																		$("#TableDivision").append(Html); 
+																	$('#table1').DataTable({
+																	'paging'      : false,
+																		dom: 'Bfrtip',
+																		buttons: [
+																			'copy', 'csv', 'excel', 'pdf', 'print'
+																		]
+																	} )
+																	
+																	$("#TableDivision1").html("");
+																				var i = 1;
+																				var j = 0;
+																				var k = 0;
+																				var Html = '<table id = "table2"  class="table table-bordered table-striped">';
+																				
+																					Html += '<thead>';
+																					Html += '<tr>';
+																					Html += '<th> Sr.no </th>';
+																			for (j = 0; j < colnames1.length; j++) {
+																			   
+																						Html += '<th> '+colnames1[j]+' </th>';
+																			}
+																					   
+																					 Html += '</tr>'; 
+																					Html += '</thead>';
+																				debugger; 
+																					
+																					Html += '<tbody>';
+																					for (j = 0; j < EntireData1.length; j++) {
+																					Html += '<tr>';
+																					Html += '<td>'+i+'</td>';
+																					i = i+1;
+
+																						
+																						for (k = 0; k < colnames1.length; k++) {
+																						var abc = colnames1[k];
+																						Html += '<td> '+EntireData1[j][abc]+' </td>';
+																			}
+																						
+																					Html += '</tr>';
+																				   }
+																					Html += '</tbody>';
+
+																					Html += '</table>';
+
+
+																		$("#TableDivision1").append(Html); 
+																	$('#table2').DataTable({
+																	'paging'      : false,
+																		dom: 'Bfrtip',
+																		buttons: [
+																			'copy', 'csv', 'excel', 'pdf', 'print'
+																		]
+																	} )
+																	
+
+                                                  $('.cover-spin ').hide(); 														 
+
+																		});
+																		
+
+                });
+				
+
+
+
+                        $('.cover-spin ').hide(); 			
+
+</script>
+
+
+
+</body>
+</html>
